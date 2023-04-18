@@ -1,10 +1,10 @@
 package main
 
 import (
-	"net/http"
-        "log"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"log"
+	"net/http"
 )
 
 var (
@@ -19,7 +19,7 @@ var (
 func Endpoint(w http.ResponseWriter, r *http.Request) {
 	// Increment the counter for each HTTP request.
 	httpRequestsTotal.Inc()
-        log.Println("Querying Endpoint, httpRequestsTotal: ", httpRequestsTotal) 
+	log.Println("Querying Endpoint, httpRequestsTotal: ", httpRequestsTotal)
 	// Handle the HTTP request as normal.
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Hello, world!"))
@@ -37,5 +37,5 @@ func main() {
 	mux.Handle("/metrics", promhttp.Handler())
 
 	// Start the HTTP server.
-	http.ListenAndServe(":1002", mux)
+	http.ListenAndServe(":1001", mux)
 }
