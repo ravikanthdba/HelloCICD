@@ -29,7 +29,7 @@ func main() {
 		go func() {
 			for j := 0; j < numRequests/concurrency; j++ {
 				// Make an HTTP request
-				resp, err := client.Get("http://localhost:1001/")
+				resp, err := client.Get("http://localhost:1002/")
 
 				// Check for errors
 				if err != nil {
