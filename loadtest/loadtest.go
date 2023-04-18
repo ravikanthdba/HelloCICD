@@ -9,7 +9,7 @@ import (
 
 func main() {
 	// Set up the load test parameters
-	numRequests := 1000
+	numRequests := 100000
 	concurrency := 10
 
 	// Create a wait group to wait for all requests to complete
@@ -29,7 +29,7 @@ func main() {
 		go func() {
 			for j := 0; j < numRequests/concurrency; j++ {
 				// Make an HTTP request
-				resp, err := client.Get("http://localhost:1002/")
+				resp, err := client.Get("http://localhost:1001/")
 
 				// Check for errors
 				if err != nil {
