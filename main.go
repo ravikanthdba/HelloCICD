@@ -5,6 +5,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"log"
 	"net/http"
+	"os"
 )
 
 var (
@@ -20,6 +21,7 @@ func Endpoint(w http.ResponseWriter, r *http.Request) {
 	// Increment the counter for each HTTP request.
 	httpRequestsTotal.Inc()
 	log.Println("Querying Endpoint, httpRequestsTotal: ", httpRequestsTotal)
+	log.Println(r.Header)
 	// Handle the HTTP request as normal.
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Hello, world!"))
@@ -32,10 +34,12 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/", Endpoint)
+	port := os.Getenv("PORT")
+	log.Println("Listening app on port: ", port)
 
 	// Expose the Prometheus metrics on an HTTP endpoint.
 	mux.Handle("/metrics", promhttp.Handler())
 
 	// Start the HTTP server.
-	http.ListenAndServe(":1001", mux)
+	http.ListenAndServe(":"+port, mux)
 }
