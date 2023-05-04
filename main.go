@@ -24,7 +24,9 @@ func Endpoint(w http.ResponseWriter, r *http.Request) {
 	log.Println(r.Header)
 	// Handle the HTTP request as normal.
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Hello, world!"))
+	port := os.Getenv("PORT")
+	hostname, _ := os.Hostname()
+	w.Write([]byte("Hello, world from port!" + port + " and host: " + hostname + "\n"))
 }
 
 func main() {
